@@ -1,0 +1,265 @@
+@font-face {
+  font-family: LabelMono;
+  src: url('@fontsource/vt323/files/vt323-latin-400-normal.woff2') format('woff2');
+  font-display: swap;
+}
+:root {
+  /* Only the inner edge of the monitor is in view: a sliver of cabinet, then the bezel lip. */
+  --rim: clamp(5px, 1vmin, 13px);
+  --lip: clamp(9px, 1.7vmin, 22px);
+  --glass-radius: clamp(16px, 3.4vmin, 42px);
+  --titlebar: 30px;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+body {
+  background: #0b0b0a;
+  color: #b3aa91;
+  font-family: LabelMono, monospace;
+  user-select: none;
+}
+body.keyboard-active {
+  cursor: none;
+}
+button,
+a,
+canvas {
+  outline: none;
+}
+.scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--rim);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(#2b2a26, #21201c 45%, #181714);
+  box-shadow:
+    inset 0 1px 0 #ffffff14,
+    inset 0 0 0 1px #ffffff0a;
+}
+/* The top of the cabinet doubles as the window's title bar. */
+.titlebar {
+  flex: none;
+  height: var(--titlebar);
+  margin: calc(var(--rim) * -1) 0 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-left: calc(var(--lip) + 4px);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.titlebar > span {
+  pointer-events: none;
+}
+.badge {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #a19e8c;
+  /* Silkscreened paint on moulded plastic: a hairline highlight under each letter. */
+  text-shadow: 0 1px 0 #ffffff0f;
+}
+.badge small {
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: #6c6a5d;
+}
+.indicators {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: #5f5d52;
+}
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lamp {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e6ad49;
+  box-shadow:
+    0 0 6px #eeb94b80,
+    inset 0 -1px 1px #0005;
+}
+.lamp.disk {
+  background: #3d3a26;
+  box-shadow: inset 0 1px 1px #0008;
+}
+.lamp.disk.active {
+  background: #deb456;
+  box-shadow: 0 0 5px #deb45680;
+}
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: calc(var(--lip) - 3px);
+}
+.window-controls button {
+  width: 32px;
+  height: 19px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  color: #8d8a7b;
+  cursor: pointer;
+  /* Recessed front-panel keys set into the cabinet. */
+  background: linear-gradient(#1b1a17, #141311);
+  box-shadow:
+    inset 0 1px 2px #000000d0,
+    inset 0 -1px 0 #ffffff0d,
+    0 1px 0 #ffffff0b;
+}
+.window-controls button:hover {
+  color: #f2a23a;
+  background: linear-gradient(#22201b, #191815);
+}
+.window-controls button.close:hover {
+  color: #ffd27a;
+  background: linear-gradient(#35220f, #24170b);
+}
+.window-controls button:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 3px #000000e6;
+}
+.window-controls svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+}
+.window-controls button:hover svg {
+  filter: drop-shadow(0 0 3px #f2a23a8c);
+}
+.bezel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--lip);
+  border-radius: calc(var(--glass-radius) + var(--lip) * 0.7);
+  /* The lip slopes toward the tube: shadowed on top, catching light and screen spill below. */
+  background:
+    radial-gradient(90% 55% at 50% 102%, #f2a23a0d, transparent 70%),
+    linear-gradient(#090908, #10100e 40%, #1a1916 100%);
+  box-shadow:
+    0 0 0 1px #00000099,
+    0 1px 0 1px #ffffff0d,
+    inset 0 -1px 0 #ffffff0f;
+}
+.glass {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--glass-radius);
+  background: #030202;
+  /* A dark gasket, then the lip falling away into shadow as it meets the tube. */
+  box-shadow:
+    0 0 0 2px #020202,
+    0 0 calc(var(--lip) * 0.9) calc(var(--lip) * 0.2) #000000a6;
+}
+/* A strip of amber readout set into the frame under the tube, like a message panel. */
+.strip {
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: calc(var(--lip) * 0.55);
+  padding: 1px 12px 0;
+  height: 22px;
+  border-radius: 4px;
+  background: linear-gradient(#070605, #0d0a07);
+  box-shadow:
+    inset 0 1px 3px #000000e6,
+    0 1px 0 #ffffff0d;
+  color: #f2a23a;
+  font-family: LabelMono, monospace;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-shadow: 0 0 6px #f2a23a8c;
+}
+.strip span {
+  white-space: pre;
+}
+.strip span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* How to get back out, wherever the player is: brighter, like a key label. */
+#strip-keys {
+  flex: none;
+  color: #ffd27a;
+}
+.strip.flash {
+  color: #ffd27a;
+  text-shadow: 0 0 10px #ffd27acc;
+}
+.strip.idle {
+  color: #9a5a18;
+  text-shadow: none;
+}
+.glass canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.glass:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  /* The bezel overhangs the curved face and casts a shadow onto it, heaviest at the top. */
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 calc(var(--lip) * 0.6) calc(var(--lip) * 1.2) #000000b8,
+    inset 0 0 calc(var(--lip) * 2) #0000008c;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: pre;
+  border: 0;
+}
+.startup-error {
+  position: absolute;
+  inset: 20%;
+  font-size: 24px;
+  color: #f2a23a;
+  white-space: pre-wrap;
+}

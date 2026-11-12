@@ -1,0 +1,17 @@
+[
+  {
+    "source": "Misc Foley/computer-pack-away.wav",
+    "sha256": "998f911081f4673a970bc8e9b67bff4ecc0421f13855598235ec83844a89aa4d",
+    "archiveEntry": "Misc Foley/computer-pack-away.wav"
+  },
+  {
+    "source": "Technology/mouse-clicks-scrolls.wav",
+    "sha256": "dd77764a64af240e57f15a822f48704c961008cced14a531388768c6ba15f6a8",
+    "archiveEntry": "Technology/mouse-clicks-scrolls.wav"
+  },
+  {
+    "source": "Technology/plugpull.wav",
+    "sha256": "fa980264466ad8f7a7acf271104340a9f90d93a5c3559d93902c82bfdaf9b63c",
+    "archiveEntry": "Technology/plugpull.wav"
+  }
+]

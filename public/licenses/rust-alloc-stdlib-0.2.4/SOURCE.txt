@@ -1,0 +1,2 @@
+https://raw.githubusercontent.com/dropbox/rust-alloc-no-stdlib/ae42d22078b98549e987d2f03d12df7b984fde47/LICENSE
+Retrieved 2026-09-22 for alloc-stdlib 0.2.4.

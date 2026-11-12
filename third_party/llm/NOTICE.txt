@@ -1,0 +1,54 @@
+SIGNAL/91 local language model
+
+SIGNAL91.exe starts the server in this folder on 127.0.0.1 when the game opens and
+stops it when the game closes. Nothing here connects to the internet.
+
+Default model (MiniCPM5-2B)
+  MiniCPM5-2B-Q4_K_M.gguf (1561318368 bytes)
+  SHA256: ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd
+  Published by OpenBMB:
+    https://huggingface.co/openbmb/MiniCPM5-2B-GGUF
+  Apache-2.0; see LICENSE-Apache-2.0.txt and MINICPM2-MODEL-CARD.md.
+
+Retained model (Horizon)
+  K2-Horizon-4B-Q4_K_M.gguf (3156598144 bytes)
+  SHA256: 07773aed93890d4f5d08b421430000d5c8d73cefc74fbdc32e67d820f23207b2
+  Published by IFM; derived from IFM/K2-Horizon-3.7B.
+  https://huggingface.co/IFM/K2-Horizon-3.7B-GGUF
+  Apache-2.0; see LICENSE-Apache-2.0.txt and HORIZON-MODEL-CARD.md.
+
+K2-compatible runtime (llama-k2/)
+  IFM llama.cpp fork commit 42adf019f76013dac873b5b43950d54d5ab27216,
+  Windows x64 CPU AVX2 build. MIT; see llama-k2/LICENSE-llama.cpp.txt.
+  https://github.com/MBZUAI-IFM/llama.cpp/tree/model/K2Horizon
+
+Small fallback model
+  Huihui-MiniCPM5-1B-abliterated.Q4_K_M.gguf (688067040 bytes)
+  Quantized by mradermacher:
+    https://huggingface.co/mradermacher/Huihui-MiniCPM5-1B-abliterated-GGUF
+  Derived from huihui-ai/Huihui-MiniCPM5-1B-abliterated, base model openbmb/MiniCPM5-1B:
+    https://huggingface.co/huihui-ai/Huihui-MiniCPM5-1B-abliterated
+  License: Apache-2.0, as stated on the model card. See LICENSE-Apache-2.0.txt.
+
+Runtime (llama/)
+  llama.cpp b10964 CPU build: llama-server.exe and its libraries.
+    https://github.com/ggml-org/llama.cpp/tree/b10964
+  Copyright (c) 2023-2026 The ggml authors. MIT License. See llama/LICENSE-llama.cpp.txt.
+  libomp.dll is the LLVM OpenMP runtime. See llama/LICENSE-LLVM-OpenMP.txt.
+
+Retained model (Bonsai)
+  Ternary-Bonsai-2-27B-Abliterated-PTQ1_0.gguf (5946648928 bytes)
+  SHA256: 94dd53cbad55db5a515f245887c9f0317484502a451ccc0424c7d7788b52900a
+  Published by BoldingBuilds; derived from prism-ml/Ternary-Bonsai-2-27B-gguf.
+  https://huggingface.co/BoldingBuilds/Ternary-Bonsai-2-27B-Abliterated-PTQ1_0-GGUF
+  Apache-2.0; see LICENSE-Apache-2.0.txt and BONSAI-MODEL-CARD.md.
+
+Prism runtime (llama-prism/)
+  PrismML llama.cpp prism-b10709-9a9394a, Windows x64 CUDA 12.4.
+  https://github.com/PrismML-Eng/llama.cpp/releases/tag/prism-b10709-9a9394a
+  MIT; see llama-prism/LICENSE-llama.cpp.txt.
+  NVIDIA CUDA runtime, cuBLAS and cuBLASLt: see
+  llama-prism/LICENSE-NVIDIA-CUDA-12.4.html for supplied license terms.
+
+MiniCPM5-2B is preferred. MiniCPM5-1B remains the automatic CPU fallback;
+Horizon and Bonsai can be selected explicitly.
